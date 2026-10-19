@@ -2,6 +2,10 @@
 
 > 按里程碑记录各阶段交付内容。每次分支合回 main 时追加条目。
 
+## 未发布：可选 Keenable 关键词 grounding 后端
+
+- query inspiration 新增可选 `keenable` grounding 后端：`KeenableInspirationProvider` 直连 Keenable 搜索 API 获取标题、URL 与摘要，默认走匿名 `/v1/search/public`；新增可选 `[discovery].keenable_api_key`，填写后改走 `/v1/search` 以提升速率限制。默认后端顺序不变，沿用现有网络策略、限时和失败回退；V2EX 正式 search 的外部召回白名单同步接纳 `keenable`。
+
 ## v0.3.229：TikTok 新来源、远程访问安全收紧与 B 站登录失效横幅死锁修复（2026-10-16）
 
 - **多语言基础设施（#305）**：`[general].language` 现在真正驱动界面、CLI 与新生成的模型输出，支持 `zh-Hans`（默认）/ `zh-Hant`（繁體・台灣）/ `en`；旧值 `zh`、`zh-TW`、`en-US` 等自动规范化，未知语言在 `PUT /api/config` 保存时 400 拒绝。新增 `openbiliclaw language [locale]` 与 `OPENBILICLAW_LANG` 单次覆盖、`GET /api/i18n/locales`、`/i18n/ui/<locale>.json` 静态目录；桌面 Web、移动 Web、设置向导与插件侧边栏共用 `web/shared/i18n.js`，按渲染后的 DOM 文本匹配目录翻译（内容与用户输入不翻译，`data-i18n-skip` 保护指定区域）。UI 目录由 `scripts/build_i18n_catalogs.py` 从源码生成：2797 条文案 + 197 条插值模式（如「模型：{0}」「{0} 分钟前」），`zh-Hant` 由 OpenCC `s2twp` 生成，英文 100% 覆盖并由 `tests/test_i18n.py` 守护；数字与短日期按 locale 格式化（`331K` / `Sep 5` 对 `33.1万` / `9月5日`）。聊天与推荐理由的 system prompt 保持字节静态，locale 以 `<output_language>` 指令进 user prompt，provider prompt cache 不受影响；`zh-Hant` 额外约束只用繁體字（真实 provider 实测：仅写「Traditional Chinese」首轮仍可能回简体），配置保存/应用提示也按新语言返回；历史推荐 / 画像文本保留原语言、不批量重译。详见 [多语言模块](modules/i18n.md)。

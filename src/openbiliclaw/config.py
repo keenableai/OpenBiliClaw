@@ -1144,6 +1144,9 @@ class DiscoveryConfig:
     exa_api_key: str = ""
     you_api_key: str = ""
     serply_api_key: str = ""
+    # Optional Keenable API key for the opt-in ``keenable`` backend. Empty keeps
+    # the keyless public endpoint; a key only lifts its rate limit.
+    keenable_api_key: str = ""
     # Optional experiment mode: when true and inspiration search is available,
     # due platforms skip the legacy merged keyword planner and are filled only
     # through the search-inspired flow.
@@ -3180,6 +3183,7 @@ def _build_discovery(discovery_raw: dict[str, Any]) -> DiscoveryConfig:
         exa_api_key=str(discovery_raw.get("exa_api_key", "") or "").strip(),
         you_api_key=str(discovery_raw.get("you_api_key", "") or "").strip(),
         serply_api_key=str(discovery_raw.get("serply_api_key", "") or "").strip(),
+        keenable_api_key=str(discovery_raw.get("keenable_api_key", "") or "").strip(),
         inspiration_replace_merged_keywords=_coerce_bool(
             discovery_raw.get("inspiration_replace_merged_keywords"),
             default=False,
@@ -3596,6 +3600,7 @@ def _normalize_inspiration_search_backends(value: object) -> tuple[str, ...]:
         "you_search": "you",
         "serply": "serply",
         "serply.io": "serply",
+        "keenable": "keenable",
     }
     normalized: list[str] = []
     seen: set[str] = set()
@@ -6389,6 +6394,7 @@ def _render_config_toml(
             f"exa_api_key = {_toml_string(config.discovery.exa_api_key)}",
             f"you_api_key = {_toml_string(config.discovery.you_api_key)}",
             f"serply_api_key = {_toml_string(config.discovery.serply_api_key)}",
+            f"keenable_api_key = {_toml_string(config.discovery.keenable_api_key)}",
             "inspiration_replace_merged_keywords = "
             f"{_toml_bool(config.discovery.inspiration_replace_merged_keywords)}",
             f"inspiration_breadth = {_toml_string(config.discovery.inspiration_breadth)}",
