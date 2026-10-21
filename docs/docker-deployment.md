@@ -52,6 +52,7 @@ docker buildx build --platform linux/amd64,linux/arm64 -t openbiliclaw-backend:v
 
 Instagram 分支的共享封面传输依赖 `httpx[socks]>=0.28` 与显式 `httpcore>=1.0,<2`，随正常 Python/镜像构建安装，不需要新守护进程。海外图片选择代理时，容器须能通过该代理访问 TLS 校验的 `https://1.1.1.1/dns-query`；仅查询公开 CDN 域名，再将公网目的 IP 固定到隧道。direct/国内 CDN 仍使用本机 DNS；DoH 故障应排查代理，不关闭证书或内网地址防护。Instagram 内容任务本身由宿主机浏览器联网，和容器封面链路分开。此说明不代表未发布分支已进入公共镜像。
 
+- **TikTok / Instagram 插件权限**：扩展默认声明两者的站点访问权限，浏览器在安装/更新时处理；保存来源设置不再单独授权。来源仍需显式启用，浏览器被手动或策略禁止站点访问时需恢复。容器部署不改变浏览器的实际授权状态。
 - **Instagram（默认关闭）**：公开 topic/creator 可选登录，个人 liked/saved/following 初始化需在装扩展的同一浏览器登录。后端只收到布尔心跳与规范化条目，不收到 Cookie；首版 init-only，不周期回拉账号。自动采集授权由部署者确认，详见[验收边界](platform-source-acceptance.instagram.md)。
 
 OpenBiliClaw 不代替用户登录——需要账号态的来源复用**你**当前浏览器的登录会话来读取你能看到的内容。Docker 部署后，这些来源仍需在装了扩展的同一个浏览器里登录；公开匿名来源会在各自条目中明确说明：
@@ -232,6 +233,8 @@ docker exec -it openbiliclaw-backend openbiliclaw init
 ```
 
 ## 配置
+
+通过 Web / 本机设置 API 成功应用模型配置后，`serve-api` 的父 supervisor 会等待应用队列结束，在下一次约 5 秒巡检重启后台 worker / 推荐 / 图片服务，使候选评估和文案使用新模型。已有候选保留，数据目录仍固定为父进程当前持锁路径；无新增 Compose 服务或依赖。直接编辑 TOML 不触发 API handoff，仍需重启 backend 容器。旧镜像遇到修正模型后空池持续为零，也应完整重启 backend 后核对 `child-discovery-worker.log`。
 
 一行安装脚本会先在宿主机生成 `config.toml`，再同步到 Docker volume 的 `/app/runtime/config.toml`。配置要改时，优先重跑同一条安装 / bootstrap 命令；高级排查时可以直接编辑容器内文件。
 

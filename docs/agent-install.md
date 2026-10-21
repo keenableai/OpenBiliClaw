@@ -9,6 +9,8 @@
 
 ## The only thing you actually need to do
 
+Runtime recovery on this branch: saving a repaired model through the local settings API now also restarts delegated backend workers after the apply queue settles. Source, Docker and desktop entry points share this behavior; no install command or new dependency is required. On older builds, fully quit/reopen the tray app (or restart the daemon/container) after correcting the model; refreshing the browser does not update a running evaluator. See [pool recovery diagnostics](testing/2026-10-20-empty-pool-recovery.md).
+
 Source-branch dependency note (Instagram/image transport): normal Python dependency installation now requires `httpx[socks]>=0.28` and explicit `httpcore>=1.0,<2`; no extra daemon or installer step is needed. Proxied overseas cover downloads require TLS-verified `https://1.1.1.1/dns-query` reachability through the configured proxy. Only public CDN hostnames are queried; see [privacy](privacy.md). Do not disable TLS verification or public-IP validation to fix a network failure. Installer commands and their post-install summary are unchanged; this does not claim the branch has been released.
 
 Pick the command for the user's shell — **detect the platform from the user's environment, do not let them choose if you can tell**:
@@ -877,6 +879,10 @@ AI agent 视角:**不要省略这些问题**。一句话安装走的是
 `discovery` / `recommendation` / `evaluation`。**只有当用户主动说「我想给画像
 用更贵的模型，发现用便宜的」之类的话，才提这个**。否则跳过——大多数用户根本不
 关心，多问一项就多一份让人迷惑的可能。
+
+## TikTok / Instagram extension site access
+
+The extension declares TikTok and Instagram site access by default in its Chrome, Firefox, and Safari manifests. Install/update permission handling belongs to the browser; saving Instagram source settings no longer opens a separate grant prompt or revokes access when the source is disabled. Both experimental sources remain opt-in in Settings, and personal imports require login in the same browser. If site access was restricted manually or by policy, restore it in the browser’s extension settings. This permission declaration does not certify source support on every browser.
 
 ## Optional: local Ollama as the embedding fallback
 

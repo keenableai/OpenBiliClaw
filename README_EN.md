@@ -26,16 +26,16 @@ Source mirror in China: [OpenBiliClaw on AtomGit](https://atomgit.com/whiteguo23
 >
 > 📱 Want a native app? The Flutter mobile client (Android / iOS / Web / desktop) lives in the separate repo [`OpenBiliClaw-mobile`](https://github.com/whiteguo233/OpenBiliClaw-mobile): recommendations, chat, profile, favorites / watch-later / 30-day history — all talking to the same local backend.
 
-> 🇨🇳 **Mainland China source**: [Gitee v0.3.229 source](https://gitee.com/whiteguo233/openbiliclaw/tree/openbiliclaw-v0.3.229) is synced. Domestic installer mirrors for this version are pending; use [GitHub Release](https://github.com/whiteguo233/OpenBiliClaw/releases/tag/openbiliclaw-v0.3.229) for current packages. [123 Cloud](https://4001474255.share.123pan.cn/123pan/IxbZMh-90KO3) retains older versions; check the version in each filename.
+> 🇨🇳 **Mainland China source**: [Gitee v0.3.229 source](https://gitee.com/whiteguo233/openbiliclaw/tree/openbiliclaw-v0.3.229) is the latest mirrored source. Get v0.3.230 source and installers from the [GitHub Release](https://github.com/whiteguo233/OpenBiliClaw/releases/tag/openbiliclaw-v0.3.230); domestic installer mirrors are pending. [123 Cloud](https://4001474255.share.123pan.cn/123pan/IxbZMh-90KO3) retains older versions; check the version in each filename.
 
 ## OpenBiliClaw in 10 Seconds
 
-> **New sources: Instagram & TikTok** — both experimental and disabled by default.
+> **New sources: Instagram & TikTok** — both sources remain experimental and disabled by default. The extension includes site access for both by default, with no separate permission prompt when saving source settings.
 >
-> - **Instagram**, included since v0.3.227: discover topics and creators, and optionally import your likes, saves, and follows to build a profile. [Setup](docs/modules/instagram.md) · [Tested scope](docs/platform-source-acceptance.instagram.md).
-> - **TikTok**, included since v0.3.229: discover feed, hashtag, and creator videos, plus keyword search after browser login. Real discovery, model evaluation, recommendations, and desktop/mobile Web rendering have passed acceptance. [Setup](docs/modules/tiktok.md) · [Tested scope](docs/platform-source-acceptance.tiktok.md).
+> - **Instagram**, included since v0.3.227 and still experimental: discover topics and creators; after signing in within the same browser, import a bounded, read-only snapshot of your recent likes, saves, and follows. Recommendation-card saves stay local. [Setup](docs/modules/instagram.md) · [Tested scope](docs/platform-source-acceptance.instagram.md).
+> - **TikTok**, included since v0.3.229 and still experimental: discover public feed, hashtag, and creator videos without signing in, plus keyword search after browser login. Public discovery → real model evaluation → recommendations and desktop/mobile Web rendering have been exercised. [Setup](docs/modules/tiktok.md) · [Tested scope](docs/platform-source-acceptance.tiktok.md).
 >
-> TikTok native favorites are deferred; nonempty real-account profiling and incremental sync still need verification ([#295](https://github.com/whiteguo233/OpenBiliClaw/issues/295)). Instagram's full Likes history, second-account and Firefox/mobile-device checks remain incomplete; refresh to see cross-device save changes. Neither source claims complete account-capability acceptance.
+> TikTok native favorites are deferred; nonempty real-account profiling, incremental sync, and signed-in Firefox still need verification ([#295](https://github.com/whiteguo233/OpenBiliClaw/issues/295)). Instagram's full Likes history, second-account, signed-in Firefox, and physical-phone checks remain incomplete; refresh to see cross-device save changes. Neither source claims complete account-capability acceptance.
 
 A local-first AI discovery agent that learns your taste across Bilibili, Xiaohongshu (RedNote), Douyin, YouTube, TikTok, X, Zhihu, Reddit, Linux.do, Bangumi, V2EX, Weibo, GitHub, experimental Instagram, and the open web — without handing your profile to another platform.
 
@@ -62,13 +62,13 @@ A local-first AI discovery agent that learns your taste across Bilibili, Xiaohon
 Four steps for most users. Firefox, Docker, scripted, and manual setup paths all live in [Setup Details](#setup-details).
 
 1. **Install the extension** — one-click from the [Chrome Web Store](https://chromewebstore.google.com/detail/cdfjfkdjjhdaccbldipkjhpibnfbiamg) (auto-updates), or download the zip from [Latest Release](https://github.com/whiteguo233/OpenBiliClaw/releases/latest) for the newest build (the store listing can lag a few days behind).
-2. **Install the backend** — grab the desktop installer from the same [Latest Release](https://github.com/whiteguo233/OpenBiliClaw/releases/latest) (macOS `.dmg` / Windows `.exe`, works out of the box, lives in the menu bar / tray). Each platform ships two variants: the **lean** installer (default; downloads the bge-m3 embedding model on first launch) and the **`-with-embedding`** installer (bge-m3 baked in, ~1.1GB, offline-ready) — pick with-embedding for a poor / offline network, lean otherwise. **[Gitee v0.3.229 source](https://gitee.com/whiteguo233/openbiliclaw/tree/openbiliclaw-v0.3.229) is synced; current domestic installer mirrors are pending, and 123 Cloud currently retains older versions.** Or, to customize or edit the source, paste this into Claude Code / Codex CLI / Cursor or another AI coding agent:
+2. **Install the backend** — grab the desktop installer from the same [Latest Release](https://github.com/whiteguo233/OpenBiliClaw/releases/latest) (macOS `.dmg` / Windows `.exe`, works out of the box, lives in the menu bar / tray). Each platform ships two variants: the **lean** installer (default; downloads the bge-m3 embedding model on first launch) and the **`-with-embedding`** installer (bge-m3 baked in, ~1.1GB, offline-ready) — pick with-embedding for a poor / offline network, lean otherwise. **Gitee is last synced at v0.3.229; get v0.3.230 source and installers from the [GitHub Release](https://github.com/whiteguo233/OpenBiliClaw/releases/tag/openbiliclaw-v0.3.230); domestic installer mirrors are pending.** Or, to customize or edit the source, paste this into Claude Code / Codex CLI / Cursor or another AI coding agent:
 
    ```text
    Please follow https://raw.githubusercontent.com/whiteguo233/OpenBiliClaw/main/docs/agent-install.md to deploy the OpenBiliClaw backend for me (use Bash `curl` to fetch the document, NOT WebFetch — WebFetch summarises markdown and drops critical commands).
    ```
 
-3. **Connect a source** — log in to [Bilibili](https://www.bilibili.com) (the default init source), or choose Xiaohongshu / Douyin / YouTube / X / Zhihu / Reddit / Linux.do / V2EX / Weibo / GitHub. Sources that need an account reuse the installed extension; GitHub uses the official REST API anonymously for public repositories. A public username can seed initialization from starred repositories, while a PAT is optional and only improves rate limits and identity verification. TikTok and Instagram are opt-in sources in Settings → Sources. Log in using the browser with the extension installed; grant Instagram site access when prompted. TikTok can discover public videos without login; signed-in keyword search uses extension-synced credentials. Instagram can import your likes, saves, and follows through read-only browser tasks. Both need overseas connectivity: the backend follows your configured network/proxy route, while browser tasks use the browser's own proxy. See [TikTok setup](docs/modules/tiktok.md) and [Instagram setup and permissions](docs/modules/instagram.md) for requirements and current limits.
+3. **Connect a source** — log in to [Bilibili](https://www.bilibili.com) (the default init source), or choose Xiaohongshu / Douyin / YouTube / X / Zhihu / Reddit / Linux.do / V2EX / Weibo / GitHub. Sources that need an account reuse the installed extension; GitHub uses the official REST API anonymously for public repositories. A public username can seed initialization from starred repositories, while a PAT is optional and only improves rate limits and identity verification. TikTok and Instagram are opt-in sources in Settings → Sources. Log in using the browser with the extension installed; site access for both is included in the extension’s default permissions. TikTok can discover public videos without login; signed-in keyword search uses extension-synced credentials. Instagram can import your likes, saves, and follows through read-only browser tasks. Both need overseas connectivity: the backend follows your configured network/proxy route, while browser tasks use the browser's own proxy. See [TikTok setup](docs/modules/tiktok.md) and [Instagram setup and permissions](docs/modules/instagram.md) for requirements and current limits.
 4. **Open the UI** — visit `http://127.0.0.1:8420/web`, or scan the extension QR code to open `http://<your-LAN-IP>:8420/m/` on your phone and save it to your home screen. For a native app experience, install the [Flutter client](https://github.com/whiteguo233/OpenBiliClaw-mobile) from its separate repo (Android / iOS / Web / desktop; installers on its [Latest Release](https://github.com/whiteguo233/OpenBiliClaw-mobile/releases/latest)) and point it at the same backend in its settings.
 
 Away from your LAN, the **native Android / iOS apps** from `OpenBiliClaw-mobile` embed `tsnet`, and
@@ -232,11 +232,12 @@ After starting the backend, open `http://127.0.0.1:8420/web` (or just `http://12
 
 ## Recent Updates
 
-📌 Latest: **v0.3.229 (2026-10-16)**
+📌 Latest: **v0.3.230 (2026-10-21)**
 
-- **New TikTok source (experimental, off by default)**: public discovery without login, keyword search after sign-in; overseas connectivity required, and native favorites plus nonempty account profiling remain unverified.
-- **Security hardening**: bilibili credential endpoints and the config write/probe endpoints now require loopback or an authenticated session; remote calls get 403 when the auth gate is off.
-- **Fixed the stuck "Bilibili login expired" banner**: it now clears the moment a repaired cookie lands instead of waiting for the next account sync.
+- **Multilingual UI**: desktop and mobile Web, the extension, and CLI support Simplified Chinese, Traditional Chinese, and English.
+- **Candidate-pool recovery**: background workers reload updated configuration and resume replenishing recommendations.
+- **Blue Fish Lab (experimental)**: isolated Bilibili-account comment interactions, with preview-only default, account separation, and quota gates.
+- **TikTok / Instagram permissions**: site access is declared on install by default; each source remains opt-in in settings.
 
 Full changelog: [docs/changelog.md](docs/changelog.md).
 
@@ -320,7 +321,7 @@ Most users: the **desktop installer** is the least effort. Want to edit the sour
 
 Grab the installer for your OS from the `openbiliclaw-v*` aggregate [Latest Release](https://github.com/whiteguo233/OpenBiliClaw/releases/latest). The aggregate page shows:
 
-> 🇨🇳 **Mainland China source**: [Gitee v0.3.229 source](https://gitee.com/whiteguo233/openbiliclaw/tree/openbiliclaw-v0.3.229) is synced. Domestic installer mirrors for this version are pending; use [GitHub Release](https://github.com/whiteguo233/OpenBiliClaw/releases/tag/openbiliclaw-v0.3.229) for current packages. [123 Cloud](https://4001474255.share.123pan.cn/123pan/IxbZMh-90KO3) retains older versions; check the version in each filename.
+> 🇨🇳 **Mainland China source**: [Gitee v0.3.229 source](https://gitee.com/whiteguo233/openbiliclaw/tree/openbiliclaw-v0.3.229) is the latest mirrored source. Get v0.3.230 source and installers from the [GitHub Release](https://github.com/whiteguo233/OpenBiliClaw/releases/tag/openbiliclaw-v0.3.230); domestic installer mirrors are pending. [123 Cloud](https://4001474255.share.123pan.cn/123pan/IxbZMh-90KO3) retains older versions; check the version in each filename.
 
 - Current backend source tag: `backend-v*`
 - Current extension release: `extension-v*`, with `openbiliclaw-extension-v*.zip` / `openbiliclaw-extension-v*-firefox.zip` (Firefox temporary debugging); AMO signing-enabled releases also include `openbiliclaw-extension-v*-firefox.xpi` (regular Firefox install)
@@ -442,7 +443,7 @@ OpenBiliClaw does not store your platform passwords or bypass login. Login-requi
 | **V2EX** | No login required; optionally configure a PAT; guided init / incremental tasks use the extension to read public rendered fields for topics, replies, favorite topics, and favorite nodes | Anonymous search/node/tab/hot/latest discovery still works without the extension; favorite scopes require an actual logged-in browser session |
 | **GitHub** | No login required; optionally enter a public username for public starred repositories. A PAT only improves rate limits and verifies identity through `/user` | Anonymous search/ranked/latest discovery still works without identity, but GitHub cannot initialize a profile alone; browser cookies are never read |
 | **TikTok (experimental)** | Public discovery needs no login; keyword search uses the signed-in browser extension to sync credentials | Disabled by default; nonempty account profiling and native favorites are not fully accepted |
-| **Instagram (experimental)** | Explicitly enable it and grant extension access to instagram.com; sign in within the same browser for personal imports | Public-page availability depends on the site; signed-out sessions cannot import likes/saves/follows. The browser needs working access to Instagram |
+| **Instagram (experimental)** | Explicitly enable the source; extension site access is included by default. Sign in within the same browser for personal imports | Public-page availability depends on the site; signed-out sessions cannot import likes/saves/follows. The browser needs working access to Instagram |
 
 Xiaohongshu, Douyin, YouTube, Zhihu, and Linux.do use Chrome extension tasks; Reddit defaults to backend-installed rdt-cli for steady-state discovery and keeps the extension for init signals; X discovery uses server-side cookie replay. GitHub always uses the backend official REST client for public repositories and never enters an extension task. Linux.do requests are same-origin GETs inside real site tabs; `_t` is reduced to a login boolean and neither cookie values nor raw responses are uploaded. Reddit/X, YouTube, Xiaohongshu, Douyin, and Zhihu native-save executors are wired 6/6 and fixture-tested; in the 2026-07-14 real-account regression, every platform''s favorite and watch-later/favorite-fallback path finished `synced/already_synced`. YouTube uses named playlists; current Zhihu exposes a global `收藏 / 已收藏` toggle with the target label `知乎收藏`, and both an initially saved state and fresh-document verification are strictly read-only so the extension never blindly clicks Save again. Linux.do and GitHub expose no native write-back. `[sources.browser].cdp_url` remains available only for generic Web / custom webpage fetching.
 
@@ -664,6 +665,8 @@ Chat: `session style → durable turn freezes style → API-owned agent task →
 
 Configuration: `save / approve → shared apply queue → replace only the loop for known chat settings; drain and rebuild for other changes`. Local chat updates preserve active conversations and learning tasks.
 
+Background configuration: `successful full apply → queue settles → parent confirms old children exited → workers / recommendation / images read new settings`. The active data directory and durable candidates survive; model repairs can resume pool filling.
+
 The full architecture overview ASCII diagrams (runtime concurrency gates, agent orchestration, source adapters, discovery / recommendation / saved-sync pipelines) have been moved to a separate document to keep the README compact:
 
 Publication date preference: `[sources.<name>].recommendation_date_*` per source → out-of-window candidates are filtered before LLM evaluation → effective inventory → PoolCurator soft/strict serving semantics.
@@ -710,7 +713,7 @@ localhost-only. The two edges are mutually exclusive, and the default HTTP path 
 | **Xiaohongshu** | passive collection · search · creator subscriptions · init import | Extension reads your logged-in pages; zero backend crawling |
 | **Douyin** | init import · search · hot · feed | CLI and daemon share the formal producer; extension background tabs fetch candidates for the unified eval pool |
 | **YouTube** | init import · Takeout offline import · search / trending / channel | Extension reads profile signals; steady-state refill is backend-direct |
-| **TikTok** (experimental, main; next release) | Feed · hashtag · creator · keyword search after login | Disabled by default; guest discovery plus extension-synced login search verified. Desktop/mobile Web recommendations work; nonempty account profiling/incremental sync remain unverified, native favorites deferred. [Details](docs/modules/tiktok.md) |
+| **TikTok** (since v0.3.229, experimental) | Feed · hashtag · creator · keyword search after login | Disabled by default; guest discovery plus extension-synced login search verified. Desktop/mobile Web recommendations work; nonempty account profiling/incremental sync remain unverified, native favorites deferred. [Details](docs/modules/tiktok.md) |
 | **X (Twitter)** | init import · search · For-You · followed authors | Server-side read-only cookie replay for discovery; native bookmark executor's first real favorite finished `synced` |
 | **Zhihu** | init import · search · hot · feed · creator · related | Extension reads logged-in tabs; renders as text cards |
 | **Reddit** | init import · search · hot · subreddit · related | Backend rdt-cli for discovery by default; Saved executor is fixture-tested, but the first real write remains uncertain after a 2xx response lacked old-DOM confirmation |
@@ -718,7 +721,7 @@ localhost-only. The two edges are mutually exclusive, and the default HTTP path 
 | **Bangumi** | public-collection init · search · ranked · date browse | Official anonymous read-only API; no cookie/token, and date results may include unreleased subjects |
 | **V2EX** | search · Node · Tab · hot · latest | Official anonymous API / JSON Feed; optional PAT for API 2.0 enrichment; Topic text cards |
 | **GitHub** | starred-repository init · search · ranked · latest | Official REST API; anonymous with an optional PAT, public repositories only, text cards |
-| **Instagram (experimental)** | topic / creator discovery · liked / saved / following init | Disabled by default; isolated read-only browser tasks, no cookie export or native save write-back; see the acceptance ledger |
+| **Instagram (experimental)** | topic / creator discovery · liked / saved / following init | Available since v0.3.227, disabled by default; bounded personal imports require login in the same browser; extension site access is included by default. No cookie export; card saves stay local. [Tested scope](docs/platform-source-acceptance.instagram.md) |
 | **Generic Web** | browser + LLM extraction | Adapts to any webpage |
 
 What happens after discovery:

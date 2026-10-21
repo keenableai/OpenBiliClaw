@@ -10,7 +10,7 @@
 - [Flutter 移动客户端](https://github.com/whiteguo233/OpenBiliClaw-mobile) — 独立仓库的原生 App（Android / iOS / Web / 桌面），[Latest Release](https://github.com/whiteguo233/OpenBiliClaw-mobile/releases/latest) 提供 Android 签名 APK 与 iOS 自签名 IPA，连接同一本地后端
 - [常见问题 FAQ](faq.md) — macOS 安全阻挡、插件连不上后端、embedding 配置、跨机器迁移、手机访问等高频问题
 - [GitHub Releases](https://github.com/whiteguo233/OpenBiliClaw/releases/latest) — Latest Release 的 `openbiliclaw-v*` 聚合页，下载浏览器插件 zip / Safari dmg 和桌面安装包；维护者通道仍保留 `extension-v*` / `desktop-v*` / `backend-v*`
-- [Gitee v0.3.229 源码](https://gitee.com/whiteguo233/openbiliclaw/tree/openbiliclaw-v0.3.229) — 本版源码已同步，国内安装包镜像待上传；[123 云盘](https://4001474255.share.123pan.cn/123pan/IxbZMh-90KO3)保留历史版本，请核对包名版本号
+- [Gitee v0.3.229 源码](https://gitee.com/whiteguo233/openbiliclaw/tree/openbiliclaw-v0.3.229) — Gitee 最近同步版本；v0.3.230 源码与安装包见 [GitHub Release](https://github.com/whiteguo233/OpenBiliClaw/releases/tag/openbiliclaw-v0.3.230)，国内安装包镜像待上传；[123 云盘](https://4001474255.share.123pan.cn/123pan/IxbZMh-90KO3)保留历史版本，请核对包名版本号
 - [隐私权政策](privacy.md) — 插件数据收集披露、本地优先数据流与明文迁移包说明
 - [变更日志](changelog.md) — 各版本交付记录
 - [Docker 部署指南](docker-deployment.md) — 手动 Docker / docker compose 部署步骤
@@ -86,6 +86,7 @@
 | 原生保存同步 | [modules/saved-sync.md](modules/saved-sync.md) | `src/openbiliclaw/saved_sync/` | ✅ canonical API + runtime + B 站 direct adapter + 六平台 extension adapter/executor + 三端后端状态驱动保存界面；GitHub repository 与微博保持 typed identity 的 local-only 保存 |
 | 灵魂管线架构 | [modules/soul-pipeline-architecture.md](modules/soul-pipeline-architecture.md) | `src/openbiliclaw/soul/` | ✅ 完成 |
 | 浏览器插件 | [modules/extension.md](modules/extension.md) | `extension/` | ✅ 支持既有来源任务桥与跨平台行为采集；GitHub 只新增 setup/status/config/repository 卡片 UI，明确不新增 host permission、content script、Cookie、任务或 native-save |
+| 蓝鱼实验室 | [modules/fish.md](modules/fish.md) | `src/openbiliclaw/fish/` | 🧪 独立小号的评论区回复 + @：同时是 B 站发现面上的一条只读路线（评论 BV 号进评估、计划交给动作层执行）；复用主链路推荐池、反馈与画像隔离，默认关闭、默认只预览、账号隔离与配额硬闸 |
 | CLI 命令参考 | [modules/cli.md](modules/cli.md) | `src/openbiliclaw/cli.py` | 🧪 已记录 GitHub `fetch-github`、三条 discover smoke 与正式 `discover --source github`；验收状态见 ledger |
 | 配置参考 | [modules/config.md](modules/config.md) | `config.example.toml` | ✅ 持续更新（含 `[sources.github]`、固定 PAT 环境变量、三分支预算、节流、bootstrap 上限与来源占比） |
 | 局域网密码门禁 | [modules/api-auth.md](modules/api-auth.md) | `src/openbiliclaw/auth_core.py` + `src/openbiliclaw/api/auth.py` | ✅ 可选 `[api.auth]` 密码门禁 + `/api/auth/*` + `set-password` |
@@ -106,10 +107,11 @@
 
 ### TikTok 来源验收补全（2026-10-04）
 
-TikTok discovery-only 接入的冻结范围、排除项与验证证据见 [契约](platform-source-contract.tiktok.toml) 和 [验收记录](platform-source-acceptance.tiktok.md)。
+TikTok 已随 v0.3.229 发布，仍为实验性、默认关闭。公开发现与登录后搜索已有实测；非空账号画像、周期增量及 Firefox 登录态待验，站内收藏暂缓。各能力的契约与最新证据分别见 [契约](platform-source-contract.tiktok.toml) 和 [验收记录](platform-source-acceptance.tiktok.md)。
 
 - [桌面打包与 macOS 签名公证](modules/packaging.md) — 本机凭据、CI Secrets、正式与实验安装包及验收。
 
+- [v0.3.230 发布与商店审核记录](testing/2026-10-21-release-0.3.230.md) — 空候选池恢复、蓝鱼实验室、多语言、默认来源站点权限及各渠道回执。
 - [v0.3.229 发布与商店审核记录](testing/2026-10-16-release-0.3.229.md) — TikTok 新来源、远程访问安全收紧、B 站登录失效横幅死锁修复与各渠道回执。
 - [v0.3.228 发布与商店审核记录](testing/2026-10-13-release-0.3.228.md) — 画像门控降本、安装包信任修复与各渠道回执。
 - [v0.3.227 发布与商店审核记录](testing/2026-10-06-release-0.3.227.md) — macOS 签名公证、Instagram 实验性来源与各渠道回执。
